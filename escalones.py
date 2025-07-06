@@ -1,6 +1,7 @@
 def staircase(n):
-    anchoEscalera= n*1
-    for i in range (1,n+1):
-        escalon = "#" * i
-        escalonJustificado = escalon.rjust(anchoEscalera)
-        print(escalonJustificado)
+    for i in range(1,n+1):
+        espacios = ' ' * (n-i)
+        relleno = '#' * i
+        total = espacios + relleno
+        print(total)
+print(staircase(4))
