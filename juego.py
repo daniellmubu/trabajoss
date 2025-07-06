@@ -97,10 +97,11 @@ preguntas = {
         "respuesta" : "a" }
     ],
 }
-#declaramos la variable puntaje
 
+#en este bucle podemos extraer una pregunta una opcion y una respuesta cmo gracias al bucle k va pasando y
+#  volviendo a pasarpor cada pregunta eso si siempre se va a escoger la primera pregunta 
 
-for nivel in range(1,101): 
+for nivel in range(1,11): 
     print("\n nivel", nivel)
 
     pregunta = preguntas[nivel][0]
@@ -108,30 +109,47 @@ for nivel in range(1,101):
     opciones = pregunta ["opciones"]
     correcta = pregunta ["respuesta"]
     time.sleep(2)
+    #ejecutamos el while siempre y se rompe con un break k esta alfin si la respuesta es correcta 
+    # osea si esta en true solo se puede romper con un break o con un exit
+    #--despues con este print imprime el mismo bucle k tiene pregunta una vez y imprime la pregunta 
     while True:
         print("\n", pregunta["pregunta"])
+        #con este recorremos las opciones una por una tambien como si fue el nivel 1
         for op in opciones:
             print(op)
-        
+        #con estos falses comrpobamos si ya se ha usado si ya se uso tuvo k haberse puesto true en el momento k 
+        # lo utilizamos eso lo hace l variable de abajo
         if comodines ["eliminar"] == False:
             print("\n**escribe '1' para usar tu primero comodin quitar dos opciones incorretas\n---------------------------------------------")
         if comodines ["llamar"] == False:
             print("**esribe '2' para usar su segundo comodin y llamar un amigo que te de una sugerencia\n---------------------------------------------")
         if comodines ["cambiar"] == False:
             print("**esribe '3' para usar tu tercer comodin y cambiar la pregunta del mismo nivel\n---------------------------------------------")
-        
+        #esto lo k hace es limpiar el comentario con el strip eliminando los espacios y con el lower lo convierte a minusculas
         respuesta = input ("\ntu respuesta: ").strip().lower()
-
+        #esto lo k hace es verificar k el usuario halla escrito exactamente uno y verifica tambien si ya se ha usdo si no no lo corre
         if respuesta == "1" and comodines["eliminar"] == False:
+            #con esto vamos  acrear una lista en una var
             incorrectas = []
+            #el op recorre todas las opciones de opciones segun el bucle en k valla y  # ojo k abajo compara con la primera 
+            # letra  de identificacion  osea abcd y   si es diferente a correcta todas las restantes las va a meter en la lista
+            #  de incorrectas despues en una var con el random elige dos incorrectas y las imprime segun el orden de iteracion
             for op in opciones:
                 if op[0] != correcta:
                     incorrectas.append(op)
             eliminadas = random.sample(incorrectas,2)
             print("se eliminaron:", eliminadas[0], "y",eliminadas[1])
-            opciones = [op for op in opciones if op not in eliminadas]
+            #rcorre cada opcion ya sabiendo k op esta iterado con 0 osea la posicion 0 recorre opciones y verifica si 
+            #no esta en eliminadas entonces agregar a la lista nuevas opciones la op k son las opciones restantes y por 
+            # ultimo comodines se convierte en true despues de haber utilizado su ciclo
+            nuevas_opciones = []
+            for op in opciones:
+                if op not in eliminadas:
+                    nuevas_opciones.append(op) 
+            opciones = nuevas_opciones
             comodines["eliminar"] = True 
-
+#con este estamos llamando el amigo el cual verificamos si es false si si crea una variable donde usamos el 
+# random para elegir algunas de las opciones donde despues se imprime y vuelve el comodin verdadero y k no se pueda volver a activar 
         elif respuesta == "2" and comodines ["llamar"] == False:
             ayuda = random.choice(opciones)
             print("tu amigo te suguiere la siguiente respuesta: ", ayuda)
@@ -143,7 +161,7 @@ for nivel in range(1,101):
             correcta = pregunta["respuesta"]
             comodines["cambiar"] = True 
             print("pregunta cambiada.")
-            continue
+            
         elif respuesta in ["a","b","c","d"]:
             if respuesta == correcta:
                 print( " muy bien correcto")
@@ -151,7 +169,7 @@ for nivel in range(1,101):
                 print("ganaste una cantidad de: ",dinero)
                 break
             else:
-                print("incorrecto. esa no es la opcion correcta era", correcta.upper())
+                print("incorrecto. esa no es la opcion m,correcta era", correcta.upper)
                 print("""Has perdido lo sentimos...\ndinero final: """, dinero)
                 exit()
         else:
@@ -159,4 +177,4 @@ for nivel in range(1,101):
 
 
 print("\n felicidades ",nombre)
-print("\n has ganado un total de: ", dinero)
+print("\n has ganado un total de: ", dinero)  
